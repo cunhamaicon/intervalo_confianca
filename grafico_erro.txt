@@ -1,0 +1,35 @@
+
+
+
+library (ggplot2)  # Load ggplot to run visuals
+
+library(scales)
+
+cols <- c("Resposta 1" = "#004753", "Resposta 2" = "#D82C20",
+ "Resposta 3" = "#CCAA14", "Resposta 4" = "#4B4C4E","Resposta 5" = "#A3D0D4",
+ "Resposta 6" = "#536F18", "Resposta 7" = "#F17925", "Resposta 8" = "#46ABB0")
+
+# Set up graph
+ggplot(dataset, aes(x = Resposta, y = Obtido, fill = Resposta )) +
+
+scale_fill_manual(values=cols)+
+    
+    # Insert the bar chart using acutal values passed to visual
+    # Stat = "identity" does not count items uses actual values
+    # set up transparency to 70% with Alpha
+    geom_bar( stat = "identity") +
+
+    # draw the error bars, use pass Ymin & Ymax from PBI
+    geom_errorbar(aes(width= .7, ymin=min, ymax=max)) +
+
+    # Change the Labels
+    labs(x = "", y = "") +
+
+    scale_y_continuous(labels = scales::percent_format(accuracy = 1))+
+
+    # Make the theme simple and remove gridlines
+    # Change the font size to 14
+    theme_classic( base_size = 14 ) +
+
+    # Remove the legend
+    theme( legend.position = "none" )
